@@ -4,17 +4,37 @@
  */
 package com.mycompany.set_theory;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Anon
  */
 public class sets_Formulas extends javax.swing.JFrame {
     set_Data sets_Datas = set_Data.getInstance();
+    complement_Data complement_Value = complement_Data.getInstance();
+    
+    
+    Set<Integer> complementOfA;
+    
+    //init operations to first set before performing operations
+    Set<Integer> union = new HashSet<>(sets_Datas.sets[0]);
+    Set<Integer> difference = new HashSet<>(sets_Datas.sets[0]);
+    Set<Integer> complement = new HashSet<>(sets_Datas.sets[0]);
+    Set<Integer> intersection = new HashSet<>(sets_Datas.sets[0]);
+    
+    //checker if complement ba
+    boolean ano;
+    
     /**
      * Creates new form sets_Formulas
      */
     public sets_Formulas() {
         initComponents();
+        
+        
+        //the following codes are for displaying all sets been made
         String cons = "";
         
         for (int i = 0; i < sets_Datas.sets.length; i++) {
@@ -22,6 +42,10 @@ public class sets_Formulas extends javax.swing.JFrame {
             //sets_Display.setText(String.valueOf(sets_Datas.sets[i]) + "\n");
         }
         sets_Display.setText(cons);
+        
+        
+        
+
     }
 
     /**
@@ -39,10 +63,17 @@ public class sets_Formulas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         sets_Display = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        answer = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton3.setText("Intersect");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Union");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -59,11 +90,21 @@ public class sets_Formulas extends javax.swing.JFrame {
         });
 
         jButton2.setText("Difference");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         sets_Display.setEditable(false);
         sets_Display.setColumns(20);
         sets_Display.setRows(5);
         jScrollPane1.setViewportView(sets_Display);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Answer:");
+
+        answer.setText("Wala pa pre, pili ka muna dyan kalma mo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,15 +115,18 @@ public class sets_Formulas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                    .addComponent(jButton1))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3)))
+                            .addComponent(jLabel1)
+                            .addComponent(answer))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -99,19 +143,54 @@ public class sets_Formulas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(answer)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        answer.getAccessibleContext().setAccessibleName("");
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        for (int i = 1; i < sets_Datas.getQuantity_Sets(); i++) {
+            union.addAll(sets_Datas.sets[i]);
+        }
+        answer.setText(String.valueOf(union));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        ano = complement_Value.ano_Pre;
+        if(ano == false){
+            for (int i = 1; i < sets_Datas.getQuantity_Sets(); i++) {
+                union.addAll(sets_Datas.sets[i]);
+            }
+            complementOfA = new HashSet<>(union);
+            complementOfA.removeAll(sets_Datas.sets[0]);
+            answer.setText(String.valueOf(complementOfA));
+        }else{
+            new complement_Values().setVisible(true);
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        for (int i = 1; i < sets_Datas.getQuantity_Sets(); i++) {
+            intersection.retainAll(sets_Datas.sets[i]);
+        }
+        answer.setText(String.valueOf(intersection));
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        for (int i = 1; i < sets_Datas.getQuantity_Sets(); i++) {
+            difference.removeAll(sets_Datas.sets[i]);
+        }
+        answer.setText(String.valueOf(difference));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,10 +228,12 @@ public class sets_Formulas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel answer;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea sets_Display;
     // End of variables declaration//GEN-END:variables

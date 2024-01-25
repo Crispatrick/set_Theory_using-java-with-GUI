@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class set_Data {
     //change ArrayList to hashset if necessary, vice versa
     
+    
     private int quantity_Sets = 0;
     int testing = 0; //debug
     Set<Integer>[] sets; //initialize set
