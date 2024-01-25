@@ -165,7 +165,11 @@ public class sets_Formulas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ano = complement_Value.ano_Pre;
-        if(ano == false){
+        if(ano == false && complement_Value.may_UniveesalSet == true){
+            complementOfA = new HashSet<>(complement_Value.universal_Set);
+            complementOfA.removeAll(sets_Datas.sets[0]);
+            answer.setText(String.valueOf(complementOfA));
+        }else if(ano == false){
             for (int i = 1; i < sets_Datas.getQuantity_Sets(); i++) {
                 union.addAll(sets_Datas.sets[i]);
             }

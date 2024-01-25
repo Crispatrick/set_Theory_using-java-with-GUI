@@ -81,6 +81,8 @@ public class complement_Values extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         complement_Value.ano_Pre = true;
         dispose();
+        
+        new universal_Set().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

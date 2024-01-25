@@ -4,12 +4,14 @@
  */
 package com.mycompany.set_theory;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anon
  */
 public class universal_Set extends javax.swing.JFrame {
-
+    complement_Data complement_Value = complement_Data.getInstance();
     /**
      * Creates new form universal_Set
      */
@@ -26,21 +28,102 @@ public class universal_Set extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        values_Set = new javax.swing.JLabel();
+        remove = new javax.swing.JButton();
+        insert = new javax.swing.JButton();
+        number = new javax.swing.JTextField();
+        done = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        values_Set.setText("Universal Set: ");
+
+        remove.setText("Remove");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
+
+        insert.setText("Insert");
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertActionPerformed(evt);
+            }
+        });
+
+        number.setText("Enter a number");
+
+        done.setText("Done");
+        done.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(values_Set)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(insert)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(remove)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(done))
+                    .addComponent(number))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(values_Set)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(remove)
+                    .addComponent(done)
+                    .addComponent(insert))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        complement_Value.universal_Set.remove(Integer.parseInt(number.getText()));
+        
+        values_Set.setText("Universal set: " + String.valueOf(complement_Value.universal_Set)); //prints the set in the label
+
+        number.setText("");
+    }//GEN-LAST:event_removeActionPerformed
+
+    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+        int value = Integer.parseInt(number.getText());
+
+        //values_Set.setText(String.valueOf(set.getQuantity_Sets())); //debug
+        complement_Value.add_Sets(value);
+
+        values_Set.setText("Universal set: " + String.valueOf(complement_Value.universal_Set)); //prints the set in the label
+
+        number.setText("");
+
+    }//GEN-LAST:event_insertActionPerformed
+
+    private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
+       complement_Value.ano_Pre = false;
+       complement_Value.may_UniveesalSet = true;
+       
+       JOptionPane.showMessageDialog(null, "Goods na Universal Set idol", "Debug Popup", JOptionPane.INFORMATION_MESSAGE);
+       number.setText("");
+       number.setEditable(false);
+    }//GEN-LAST:event_doneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +161,10 @@ public class universal_Set extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton done;
+    private javax.swing.JButton insert;
+    private javax.swing.JTextField number;
+    private javax.swing.JButton remove;
+    private javax.swing.JLabel values_Set;
     // End of variables declaration//GEN-END:variables
 }
