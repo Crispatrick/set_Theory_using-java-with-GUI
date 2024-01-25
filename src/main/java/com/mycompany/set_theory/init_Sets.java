@@ -97,16 +97,18 @@ public class init_Sets extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+            
         
         data.setQuantity_Sets(Integer.parseInt(num_Sets.getText()));
         test.setText(String.valueOf(data.getQuantity_Sets())); // debug
         
         data.init_Sets();
         new set_Values().setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

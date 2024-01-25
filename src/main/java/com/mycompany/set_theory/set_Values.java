@@ -4,11 +4,15 @@
  */
 package com.mycompany.set_theory;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anon
  */
 public class set_Values extends javax.swing.JFrame {
+    
+    
     //set_Data set_Data = new set_Data();
     //init_Sets set = new init_Sets(); //debug
     
@@ -17,6 +21,7 @@ public class set_Values extends javax.swing.JFrame {
     
     int num_Sets = 0; //index of set
     int counter = num_Sets + 1;
+    int limit = set.sets.length - 1;
     
     /**
      * Creates new form set_Values
@@ -44,12 +49,18 @@ public class set_Values extends javax.swing.JFrame {
         next_Set1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
 
         number.setText("Enter a number");
 
         values_Set.setText("Empty set");
 
         remove.setText("Remove");
+        remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeActionPerformed(evt);
+            }
+        });
 
         insert.setText("Insert");
         insert.addActionListener(new java.awt.event.ActionListener() {
@@ -84,26 +95,27 @@ public class set_Values extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(values_Set)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(number)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(remove)
-                            .addComponent(next_Set1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(next_Set)
-                            .addComponent(insert))))
-                .addGap(30, 30, 30))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(done)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(values_Set)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(number)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(remove)
+                                    .addComponent(next_Set1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(next_Set)
+                                    .addComponent(insert))))
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,10 +134,11 @@ public class set_Values extends javax.swing.JFrame {
                     .addComponent(next_Set1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(done)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
@@ -137,25 +150,48 @@ public class set_Values extends javax.swing.JFrame {
         
         values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
         
+        number.setText("");
+        
     }//GEN-LAST:event_insertActionPerformed
 
     private void doneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneActionPerformed
-       
+       new sets_Formulas().setVisible(true);
+       dispose();
     }//GEN-LAST:event_doneActionPerformed
 
     private void next_SetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_SetActionPerformed
-        num_Sets++;
-        number.setText("");
-        
-        values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
+        if(num_Sets < limit){
+            num_Sets++;
+            counter++;
+
+            number.setText("");
+
+            values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
+        }else if (num_Sets >= limit || num_Sets == limit ){
+            JOptionPane.showMessageDialog(null, "Sobra kana pre, wala ng next sets yan na yun idol", "Wala na pre", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_next_SetActionPerformed
 
     private void next_Set1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_Set1ActionPerformed
-        num_Sets--;
-        number.setText("");
-        
-        values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
+        if(num_Sets == 0){
+            JOptionPane.showMessageDialog(null, "Tama kana pre, wala ng previous sets yan na yun idol", "Wala na pre", JOptionPane.WARNING_MESSAGE);
+        }else{
+            num_Sets--;
+            counter--;
+
+            number.setText("");
+
+            values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
+        }
+
     }//GEN-LAST:event_next_Set1ActionPerformed
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        set.sets[num_Sets].remove(Integer.parseInt(number.getText()));
+        values_Set.setText("Set:" + counter + " " + String.valueOf(set.sets[num_Sets])); //prints the set in the label
+        
+        number.setText("");
+    }//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
